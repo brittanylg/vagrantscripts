@@ -1,0 +1,47 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+#====================================
+# Configure your environment
+
+$path_to_scripts = '../_scripts'
+
+$hostname = 'test.dev'
+$vm_path = '/var/www/public' # path to project files on VM, this will be shared with current dir
+$provision = 'bedrock'
+
+# Activate additional Vagrant configuration tasks here
+$tasks = [
+    'hostmanager',      # use vagrant-hostmanager plugin to automatically add hostname to hosts file
+    'datamanager',      # make Magnificent Downstream Data Dumper available on machine via port :8999
+#    'forward-sshkey'    # forward your ssh key to the VM (will copy into machine on Windows due to forward-agent not working)
+    ]
+
+Vagrant.configure("2") do |config|
+    config.vm.provider "virtualbox" do |v|
+        v.memory = 3072
+        v.cpus = 1
+    end
+end
+
+
+#====================================
+
+
+
+begin
+    load "#{$path_to_scripts}/provision/#{$provision}.rb"
+rescue LoadError
+    raise Vagrant::Errors::VagrantError, "\n\nERROR: #{$provision}.rb not found in #{$path_to_scripts}/provision\n\n"
+end
+
+for task in $tasks
+    begin
+        load "#{$path_to_scripts}/vagrant/#{task}.rb"
+    rescue LoadError
+        raise Vagrant::Errors::VagrantError, "\n\nERROR: #{task}.rb not found in #{$path_to_scripts}/vagrant\n\n"
+    end
+end
+
+
+
