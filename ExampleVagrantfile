@@ -14,7 +14,8 @@ $provision = 'bedrock'
 $tasks = [
     'hostmanager',      # use vagrant-hostmanager plugin to automatically add hostname to hosts file
     'datamanager',      # make Magnificent Downstream Data Dumper available on machine via port :8999
-#    'forward-sshkey'    # forward your ssh key to the VM (will copy into machine on Windows due to forward-agent not working)
+#    'forward-sshkey',    # forward your ssh key to the VM (will copy into machine on Windows due to forward-agent not working)
+#    'ioncube',          # Install ioncube
     ]
 
 Vagrant.configure("2") do |config|
