@@ -1,4 +1,18 @@
- 
+ $script = <<SCRIPT
+echo "<VirtualHost *:80>
+    UseCanonicalName Off
+    DocumentRoot /var/www/public/web
+    <Directory /var/www/public/web>
+        Options FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>" > /etc/apache2/sites-available/000-default.conf
+
+sudo service apache2 restart
+
+SCRIPT
+
 Vagrant.configure("2") do |config|
     config.vm.box = "scotch/box"
     config.vm.network "private_network", type: "dhcp"
