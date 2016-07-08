@@ -1,6 +1,6 @@
  $script = <<SCRIPT
-sudo chmod 775 /etc/apache2/sites-available/000-default.conf
-sudo echo "<VirtualHost *:80>
+sudo chmod 777 /etc/apache2/sites-available/000-default.conf
+echo "<VirtualHost *:80>
     UseCanonicalName Off
     DocumentRoot /var/www/public/web
 
