@@ -17,8 +17,7 @@ else
     git pull
 fi
 
-sudo chown vagrant:vagrant /var/www/mddd/config
-
+sudo chown -R vagrant:vagrant /var/www/mddd
 
 cd ~
 
