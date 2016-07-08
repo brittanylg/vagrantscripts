@@ -1,5 +1,4 @@
- $script = <<SCRIPT
-sudo chmod 777 /etc/apache2/sites-available/000-default.conf
+script = <<SCRIPT
 echo "<VirtualHost *:80>
     UseCanonicalName Off
     DocumentRoot /var/www/public/web
@@ -19,7 +18,6 @@ echo "<VirtualHost *:80>
         Require all granted
     </Directory>
 </VirtualHost>" > /etc/apache2/sites-available/000-default.conf
-sudo chmod 644 /etc/apache2/sites-available/000-default.conf
 
 sudo service apache2 restart
 
@@ -35,7 +33,7 @@ Vagrant.configure("2") do |config|
     config.vm.synced_folder ".", "/vagrant", disabled: true
     config.vm.box_download_insecure = true
 
-    config.vm.provision "shell", inline: $script
+    config.vm.provision "shell", inline: script
     
     config.trigger.after [:up, :reload] do
         run_remote "bash /home/vagrant/scripts/startup-scotchbox.sh"

@@ -4,7 +4,7 @@
 # requires vagrant-triggers
 # requires vagrant-hostmanager
 
-$script = <<SCRIPT
+script = <<SCRIPT
 mkdir -p /var/www/mddd
 cd /var/www/mddd
 
@@ -40,7 +40,7 @@ Vagrant.configure("2") do |config|
     
     # provision: add datamanager :8999 to apache VHost
     # provision: clone latest version of datamanager
-    config.vm.provision "shell", inline: $script
+    config.vm.provision "shell", inline: script
     
     config.trigger.after [:up, :reload] do
         run_remote "echo 'Magnificent Downstream Data Dumper is alive and well on port :8999'"
