@@ -2,6 +2,16 @@
 echo "<VirtualHost *:80>
     UseCanonicalName Off
     DocumentRoot /var/www/public/web
+
+    RewriteEngine On
+    RewriteRule ^/d3panel/?$ /wp/d3panel [R=301,L]
+    RewriteRule ^/wp-admin/?$ /wp/wp-admin [R=301,L]
+    RewriteRule ^/index\.php$ - [L]
+    RewriteCond %{DOCUMENT_ROOT}%{REQUEST_FILENAME} !-f
+    RewriteCond %{DOCUMENT_ROOT}%{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !^/php5\.fcgi/*
+    RewriteRule . /index.php [L]
+
     <Directory /var/www/public/web>
         Options FollowSymLinks
         AllowOverride All
