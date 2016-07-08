@@ -5,7 +5,7 @@
 # requires vagrant-hostmanager
 
 script = <<SCRIPT
-mkdir -p /var/www/mddd
+mkdir -p -m0775 /var/www/mddd
 cd /var/www/mddd
 
 if ! git rev-parse --git-dir > /dev/null 2>&1; then
@@ -16,6 +16,8 @@ if ! git rev-parse --git-dir > /dev/null 2>&1; then
 else
     git pull
 fi
+
+sudo chmod 0775 /var/www/mddd/config
 
 
 cd ~
