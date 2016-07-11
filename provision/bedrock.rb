@@ -3,6 +3,8 @@ echo "<VirtualHost *:80>
     UseCanonicalName Off
     DocumentRoot /var/www/public/web
 
+    DirectoryIndex index.php
+
     RewriteEngine On
     RewriteRule ^/d3panel/?$ /wp/d3panel [R=301,L]
     RewriteRule ^/wp-admin/?$ /wp/wp-admin [R=301,L]
