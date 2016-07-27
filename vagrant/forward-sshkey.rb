@@ -1,14 +1,13 @@
  
 #change this to the path to your ssh key
-ssh_key_path = "/path/to/key.pem"
 
 Vagrant.configure("2") do |config|
     config.ssh.forward_agent = true
     #pass ssh key into provisioner
     if Vagrant::Util::Platform.windows?
-            if File.exists?(ssh_key_path)
+            if File.exists?($ssh_key_path)
                     # Read local machine's SSH Key
-                    ssh_key = File.read(ssh_key_path)
+                    ssh_key = File.read($ssh_key_path)
                     # send key contents to provisioner
                     config.vm.provision :shell, :inline => "sudo rm -f ~/.ssh/id_rsa && echo 'Windows-specific: Copying local SSH Key to VM...' && sudo mkdir -p ~/.ssh && sudo echo '#{ssh_key}' > ~/.ssh/id_rsa && sudo chmod 600 ~/.ssh/id_rsa", :privileged => false
             else

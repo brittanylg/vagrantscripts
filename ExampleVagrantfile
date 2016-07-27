@@ -4,6 +4,9 @@
 #====================================
 # Configure your environment
 
+## ssh_key_path needs to be defined when using forward-sshkey task and on windows
+$ssh_key_path = 'E:/dwalker/keys/dwalker.pem'
+
 $path_to_scripts = '../_scripts'
 
 $hostname = 'test.dev'
