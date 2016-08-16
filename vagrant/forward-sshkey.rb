@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
                     # send key contents to provisioner
                     config.vm.provision :shell, :inline => "sudo rm -f ~/.ssh/id_rsa && echo 'Windows-specific: Copying local SSH Key to VM...' && sudo mkdir -p ~/.ssh && sudo echo '#{ssh_key}' > ~/.ssh/id_rsa && sudo chmod 600 ~/.ssh/id_rsa", :privileged => false
             else
-                    raise Vagrant::Errors::VagrantError, "\n\nERROR: SSH Key not found on host machine.\n\n"
+                    raise Vagrant::Errors::VagrantError.new, "\n\nERROR: SSH Key not found on host machine.\n\n"
             end
     end
 end
