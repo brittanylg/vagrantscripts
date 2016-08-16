@@ -37,14 +37,14 @@ end
 begin
     load "#{$path_to_scripts}/provision/#{$provision}.rb"
 rescue LoadError
-    raise Vagrant::Errors::VagrantError, "\n\nERROR: #{$provision}.rb not found in #{$path_to_scripts}/provision\n\n"
+    raise Vagrant::Errors::VagrantError.new, "\n\nERROR: #{$provision}.rb not found in #{$path_to_scripts}/provision\n\n"
 end
 
 for task in $tasks
     begin
         load "#{$path_to_scripts}/vagrant/#{task}.rb"
     rescue LoadError
-        raise Vagrant::Errors::VagrantError, "\n\nERROR: #{task}.rb not found in #{$path_to_scripts}/vagrant\n\n"
+        raise Vagrant::Errors::VagrantError.new, "\n\nERROR: #{task}.rb not found in #{$path_to_scripts}/vagrant\n\n"
     end
 end
 
