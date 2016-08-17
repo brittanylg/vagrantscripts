@@ -5,8 +5,8 @@
 # requires vagrant-hostmanager
 
 script = <<SCRIPT
-mkdir -p -m0775 /var/www/mddd
-cd /var/www/mddd
+mkdir -p -m0775 /etc/dwalkr/mddd
+cd /etc/dwalkr/mddd
 
 if ! git rev-parse --git-dir > /dev/null 2>&1; then
     git init
@@ -17,15 +17,15 @@ else
     git pull
 fi
 
-sudo chown -R vagrant:vagrant /var/www/mddd
+sudo chown -R vagrant:vagrant /etc/dwalkr/mddd
 
 cd ~
 
 echo "Listen 8999
 <VirtualHost *:8999>
     UseCanonicalName Off
-    DocumentRoot /var/www/mddd
-    <Directory /var/www/mddd>
+    DocumentRoot /etc/dwalkr/mddd
+    <Directory /etc/dwalkr/mddd>
         Options FollowSymLinks
         AllowOverride All
         Require all granted
