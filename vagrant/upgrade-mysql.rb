@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 # requires vagrant-triggers
 # requires vagrant-hostmanager
-$script = <<SCRIPT
+script = <<SCRIPT
 
 sudo apt-get purge --assume-yes mysql-server mysql-server-5.5 mysql-server-core-5.5 mysql-client mysql-client-5.5 mysql-client-core-5.5
 sudo apt-get -y update
@@ -16,5 +16,5 @@ SCRIPT
 
 
 Vagrant.configure("2") do |config|   
-    config.vm.provision "shell", inline: $script, privileged: false
+    config.vm.provision "shell", inline: script, privileged: false
 end

@@ -4,7 +4,7 @@
 # requires vagrant-triggers
 # requires vagrant-hostmanager
 
-$script = <<SCRIPT
+script = <<SCRIPT
 
 cd ~
 sudo rm -rf Ioncube-Autoinstall
@@ -15,5 +15,5 @@ sudo ./Ioncube-Autoinstall/eng_ioncube.sh
 SCRIPT
 
 Vagrant.configure("2") do |config|   
-    config.vm.provision "shell", inline: $script
+    config.vm.provision "shell", inline: script
 end
