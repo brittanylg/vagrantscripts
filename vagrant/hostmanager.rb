@@ -5,6 +5,28 @@
 # requires vagrant-triggers
 # requires vagrant-hostmanager
 
+$logger = Log4r::Logger.new('vagrantfile')
+def read_ip_address(machine)
+  command =  "ip a | grep 'inet' | grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $2 }' | cut -f1 -d\"/\""
+  result  = ""
+
+  $logger.info "Processing #{ machine.name } ... "
+
+  begin
+    # sudo is needed for ifconfig
+    machine.communicate.sudo(command) do |type, data|
+      result << data if type == :stdout
+    end
+    $logger.info "Processing #{ machine.name } ... success"
+  rescue
+    result = "# NOT-UP"
+    $logger.info "Processing #{ machine.name } ... not running"
+  end
+
+  # the second inet is more accurate
+  result.chomp.split("\n").last
+end
+
 Vagrant.configure("2") do |config|
     config.hostmanager.enabled = false
     config.hostmanager.manage_host = true
@@ -13,14 +35,7 @@ Vagrant.configure("2") do |config|
 
     cached_addresses = {}
     config.hostmanager.ip_resolver = proc do |vm, resolving_vm|
-        if cached_addresses[vm.name].nil?
-        if hostname = (vm.ssh_info && vm.ssh_info[:host])
-            vm.communicate.execute("/sbin/ifconfig eth1 | grep 'inet addr' | tail -n 1 | egrep -o '[0-9\.]+' | head -n 1 2>&1") do |type, contents|
-            cached_addresses[vm.name] = contents.split("\n").first[/(\d+\.\d+\.\d+\.\d+)/, 1]
-            end
-        end
-        end
-        cached_addresses[vm.name]
+        read_ip_address(vm)
     end
     
     config.trigger.after [:up, :reload] do
