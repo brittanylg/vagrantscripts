@@ -14,6 +14,21 @@ echo "<VirtualHost *:80>
 
 sudo service apache2 restart
 
+sudo add-apt-repository ppa:ondrej/php -y
+sudo apt-get update -y
+sudo apt-get install -y libapache2-mod-php5.6
+sudo apt-get install -y php5.6-common
+sudo apt-get install -y php5.6-mysql
+sudo apt-get install -y php-oauth
+sudo apt-get install -y php5.6-simplexml
+sudo apt-get install -y php-json
+sudo apt-get install -y php-mcrypt
+sudo apt-get install -y php5.6-mcrypt
+sudo apt-get install -y php5.6-curl
+sudo a2dismod php5
+sudo a2enmod php5.6
+sudo service apache2 restart
+
 SCRIPT
 
 Vagrant.configure("2") do |config|
