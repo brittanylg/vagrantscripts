@@ -25,6 +25,7 @@ sudo apt-get install -y php-json
 sudo apt-get install -y php-mcrypt
 sudo apt-get install -y php5.6-mcrypt
 sudo apt-get install -y php5.6-curl
+sudo sed -i 's/short_open_tag = Off/short_open_tag = On/' /etc/php/5.6/apache2/php.ini
 sudo a2dismod php5
 sudo a2enmod php5.6
 sudo service apache2 restart
