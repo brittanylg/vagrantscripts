@@ -6,6 +6,8 @@
 
 cert_script = <<SCRIPT
 
+sudo openssl req -new -x509 -days 365 -nodes -out /etc/ssl/certs/ssl.crt -keyout /etc/ssl/private/ssl.key -subj "/C=RO/ST=Bucharest/L=Bucharest/O=IT/CN=www.example.ro"
+
 echo "<VirtualHost *:443>
     UseCanonicalName Off
     SSLEngine On
@@ -19,16 +21,9 @@ echo "<VirtualHost *:443>
 
 sudo a2enmod ssl
 sudo a2ensite certs
-
+sudo service apache2 restart
 SCRIPT
 
 Vagrant.configure("2") do |config|
-    
-    # provision: add datamanager :8999 to apache VHost
-    # provision: clone latest version of datamanager
     config.vm.provision "shell", inline: cert_script
-    
-    config.trigger.after [:up, :reload] do
-        run_remote "bash /home/vagrant/scripts/certs.sh; echo 'Certs are setup!'"
-    end
 end
