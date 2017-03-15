@@ -19,6 +19,7 @@ $tasks = [
     'datamanager',      # make Magnificent Downstream Data Dumper available on machine via port :8999
     'upgrade-mysql',    # upgrade mysql to 5.6 to prevent problems with fulltext indexes
 #    'forward-sshkey',    # forward your ssh key to the VM (will copy into machine on Windows due to forward-agent not working)
+#    'certs',             # adds ssl cert to VM
 #    'ioncube',          # Install ioncube
 #    'slap',             # Install sublime-esque terminal editor -- https://github.com/slap-editor/slap
     ]
