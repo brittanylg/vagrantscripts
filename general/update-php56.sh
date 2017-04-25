@@ -33,6 +33,10 @@ php5.6-intl php5.6-mcrypt php5.6-memcache php5.6-memcached php5.6-mongo php5.6-m
 php5.6-readline php5.6-redis php5.6-sqlite php5.6-mbstring php5.6-zip php5.6-json php5.6-xdebug php5.6-xml php-imagick -y
 sudo a2dismod php5
 sudo a2enmod php5.6
+
+# short open tag
+sudo sed -i 's/short_open_tag = Off/short_open_tag = On/' /etc/php/5.6/apache2/php.ini
+
 # uninstall old php5 packages
 sudo apt-get autoremove
 sudo apt-get --purge remove php5-common php5-json php5-imagick -y
