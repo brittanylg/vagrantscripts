@@ -7,7 +7,7 @@
 
 $logger = Log4r::Logger.new('vagrantfile')
 def read_ip_address(machine)
-  command =  "ip a | grep 'inet' | grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $2 }' | cut -f1 -d\"/\""
+  command =  "ip a | grep 'inet' | grep -v '127.0.0.1' | grep -v 'docker0' | cut -d: -f2 | awk '{ print $2 }' | cut -f1 -d\"/\""
   result  = ""
 
   $logger.info "Processing #{ machine.name } ... "
