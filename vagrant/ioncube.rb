@@ -8,7 +8,7 @@ script = <<SCRIPT
 
 cd ~
 sudo rm -rf Ioncube-Autoinstall
-git clone https://github.com/Chikoumi/Ioncube-Autoinstall
+git clone https://github.com/dwalkr/Ioncube-Autoinstall
 sudo chmod +x Ioncube-Autoinstall/eng_ioncube.sh
 sudo ./Ioncube-Autoinstall/eng_ioncube.sh
 
