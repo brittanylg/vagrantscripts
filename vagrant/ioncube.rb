@@ -1,7 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# requires vagrant-triggers
 # requires vagrant-hostmanager
 
 script = <<SCRIPT

@@ -5,13 +5,13 @@
 # Configure your environment
 
 ## ssh_key_path needs to be defined when using forward-sshkey task and on windows
-$ssh_key_path = 'E:/dwalker/keys/dwalker.pem'
+$ssh_key_path = '/path/to/pem'
 
-$path_to_scripts = '../_scripts'
+$path_to_scripts = '/path/to/scripts'
 
 $hostname = 'test.dev'
 $vm_path = '/var/www/public' # path to project files on VM, this will be shared with current dir
-$provision = 'bedrock'
+$provision = ''
 
 # Activate additional Vagrant configuration tasks here
 $tasks = [
@@ -22,7 +22,7 @@ $tasks = [
 #    'certs',             # adds ssl cert to VM
 #    'ioncube',          # Install ioncube
 #    'slap',             # Install sublime-esque terminal editor -- https://github.com/slap-editor/slap
-    ]
+]
 
 Vagrant.configure("2") do |config|
     config.vm.provider "virtualbox" do |v|
@@ -35,7 +35,6 @@ end
 
 
 #====================================
-
 
 
 begin
@@ -59,6 +58,3 @@ for task in $tasks
         end
     end
 end
-
-
-

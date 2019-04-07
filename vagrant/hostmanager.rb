@@ -2,29 +2,28 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# requires vagrant-triggers
 # requires vagrant-hostmanager
 
 $logger = Log4r::Logger.new('vagrantfile')
 def read_ip_address(machine)
-  command =  "ip a | grep 'inet' | grep -v '127.0.0.1' | grep -v 'docker0' | cut -d: -f2 | awk '{ print $2 }' | cut -f1 -d\"/\""
-  result  = ""
+    command =  "ip a | grep 'inet' | grep -v '127.0.0.1' | grep -v 'docker0' | cut -d: -f2 | awk '{ print $2 }' | cut -f1 -d\"/\""
+    result  = ""
 
-  $logger.info "Processing #{ machine.name } ... "
+    $logger.info "Processing #{ machine.name } ... "
 
-  begin
-    # sudo is needed for ifconfig
-    machine.communicate.sudo(command) do |type, data|
-      result << data if type == :stdout
+    begin
+        # sudo is needed for ifconfig
+        machine.communicate.sudo(command) do |type, data|
+        result << data if type == :stdout
+        end
+        $logger.info "Processing #{ machine.name } ... success"
+    rescue
+        result = "# NOT-UP"
+        $logger.info "Processing #{ machine.name } ... not running"
     end
-    $logger.info "Processing #{ machine.name } ... success"
-  rescue
-    result = "# NOT-UP"
-    $logger.info "Processing #{ machine.name } ... not running"
-  end
 
-  # the second inet is more accurate
-  result.chomp.split("\n").last
+    # the second inet is more accurate
+    result.chomp.split("\n").last
 end
 
 Vagrant.configure("2") do |config|
@@ -38,7 +37,7 @@ Vagrant.configure("2") do |config|
         read_ip_address(vm)
     end
     
-    config.trigger.after [:up, :reload] do
-        run "vagrant hostmanager"
+    config.trigger.after [:up, :reload] do |trigger|
+        trigger.run = {inline: "vagrant hostmanager"}
     end
 end
