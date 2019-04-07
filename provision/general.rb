@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
     config.vm.synced_folder ".", "/vagrant", disabled: true
     config.vm.box_download_insecure = true
 
-    config.trigger.after [:up, :reload] do
-        run_remote "bash /home/vagrant/scripts/startup-scotchbox.sh"
+    config.trigger.after [:up, :reload] do |trigger|
+        trigger.run_remote = {inline: "bash /home/vagrant/scripts/startup-scotchbox.sh"}
     end
 end

@@ -1,7 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# requires vagrant-triggers
 # requires vagrant-hostmanager
 
 script = <<SCRIPT
@@ -43,7 +42,7 @@ Vagrant.configure("2") do |config|
     # provision: clone latest version of datamanager
     config.vm.provision "shell", inline: script
     
-    config.trigger.after [:up, :reload] do
-        run_remote "echo 'Magnificent Downstream Data Dumper is alive and well on port :8999'"
+    config.trigger.after [:up, :reload] do |trigger|
+        trigger.run_remote = {inline: "echo 'Magnificent Downstream Data Dumper is alive and well on port :8999'"}
     end
 end

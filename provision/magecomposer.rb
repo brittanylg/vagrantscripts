@@ -29,9 +29,9 @@ Vagrant.configure("2") do |config|
 
     config.vm.provision "shell", inline: script
 
-    config.trigger.after [:up, :reload] do
-        run_remote "bash /home/vagrant/scripts/startup-scotchbox.sh"
-        run_remote "sudo composer self-update"
-    #    run_remote "cd #{$vm_path} && composer update"
+    config.trigger.after [:up, :reload] do |trigger|
+        trigger.run_remote = {inline: "bash /home/vagrant/scripts/startup-scotchbox.sh"}
+        trigger.run_remote = {inline: "sudo composer self-update"}
+    #    trigger.run_remote = {inline: "cd #{$vm_path} && composer update"}
     end
 end
