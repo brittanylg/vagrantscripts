@@ -1,7 +1,7 @@
 
 Vagrant.configure("2") do |config|
     config.vm.box = "scotch/box"
-    config.vm.box_version = "2.5"
+    config.vm.box_version = "3.5"
     config.vm.network "private_network", type: "dhcp"
     config.vm.hostname = "#{$hostname}"
 
